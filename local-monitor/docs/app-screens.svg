@@ -1,0 +1,228 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 724" width="1040" height="724" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif">
+  <defs>
+    <style>
+      .ttl{font-size:25px;font-weight:700;fill:#111827}
+      .sub{font-size:13.5px;fill:#6b7280}
+      .frm{fill:#ffffff;stroke:#e5e7eb;stroke-width:1.5}
+      .hdr{fill:#f9fafb}
+      .card{fill:#ffffff;stroke:#eceff3;stroke-width:1}
+      .lb{font-size:11px;fill:#8b93a1}
+      .vl{font-size:15px;font-weight:700;fill:#1f2937}
+      .big{font-size:23px;font-weight:800;fill:#0f172a}
+      .tag{font-size:8.5px;font-weight:700;fill:#ffffff}
+      .tabon{fill:#0d9488}
+      .taboff{fill:#9aa2ad}
+      .tlab{font-size:11.5px;font-weight:700}
+      .sec{font-size:12px;font-weight:700;fill:#374151}
+      .mini{font-size:10.5px;fill:#6b7280}
+      .box{fill:#ffffff;stroke:#e5e7eb;stroke-width:1.5}
+    </style>
+  </defs>
+
+  <rect width="1040" height="724" fill="#f6f7f9"/>
+
+  <text class="ttl" x="40" y="50">安卓 App 界面地图</text>
+  <text class="sub" x="40" y="76">顶部一条状态栏共用；下面 4 个标签页，各管一件事。手机上的数据来自电脑端伴侣服务（电脑离线时显示最近快照）</text>
+
+  <!-- ================= Frame 1 : 概览 ================= -->
+  <g transform="translate(40,104)">
+    <rect class="frm" x="0" y="0" width="222" height="408" rx="18"/>
+    <rect class="hdr" x="1" y="1" width="220" height="46" rx="17"/>
+    <circle cx="16" cy="24" r="3.5" fill="#10b981"/>
+    <text x="26" y="28" class="mini" style="font-weight:700;fill:#374151">用量中心</text>
+    <text x="206" y="28" class="mini" text-anchor="end" style="font-size:9.5px">隐私 · 刷新 · 设置</text>
+
+    <rect class="card" x="12" y="54" width="198" height="58" rx="10"/>
+    <text x="24" y="72" class="lb">剩余可用</text>
+    <text x="24" y="100" class="big">12,480</text>
+
+    <rect class="card" x="12" y="118" width="198" height="46" rx="10"/>
+    <text x="24" y="135" class="lb">今日消耗</text>
+    <rect x="166" y="125" width="32" height="14" rx="7" fill="#e6f6f3"/>
+    <text x="182" y="135.5" class="mini" text-anchor="middle" style="font-size:9px;fill:#0d9488;font-weight:700">云端</text>
+    <text x="24" y="156" class="vl">320</text>
+
+    <rect class="card" x="12" y="170" width="198" height="54" rx="10"/>
+    <text x="24" y="187" class="lb">近 7 天使用趋势</text>
+    <polyline points="24,216 50,204 76,210 102,194 128,200 154,185 180,191 200,180"
+              fill="none" stroke="#14b8a6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="200" cy="180" r="2.8" fill="#14b8a6"/>
+
+    <rect class="card" x="12" y="230" width="198" height="48" rx="10"/>
+    <text x="24" y="247" class="lb">账户健康</text>
+    <text x="24" y="269" class="vl">92 <tspan class="mini" style="font-weight:600">优</tspan></text>
+    <text x="198" y="269" class="mini" text-anchor="end" style="font-size:9.5px">为什么是这个分 ›</text>
+
+    <rect class="card" x="12" y="284" width="198" height="30" rx="10"/>
+    <text x="24" y="303" class="mini" style="font-weight:700;fill:#b45309">需要关注 · 1</text>
+    <text x="198" y="303" class="mini" text-anchor="end">›</text>
+
+    <rect class="card" x="12" y="320" width="198" height="30" rx="10"/>
+    <text x="24" y="339" class="mini">当前任务 · 2 个进行中</text>
+
+    <line x1="1" y1="363" x2="221" y2="363" stroke="#e5e7eb"/>
+    <text x="28" y="396" class="tlab tabon" text-anchor="middle">概览</text>
+    <text x="83" y="396" class="tlab taboff" text-anchor="middle">账户</text>
+    <text x="138" y="396" class="tlab taboff" text-anchor="middle">记录</text>
+    <text x="192" y="396" class="tlab taboff" text-anchor="middle" style="font-size:10px">DeepSeek</text>
+    <rect x="14" y="402" width="28" height="3" rx="1.5" fill="#0d9488"/>
+  </g>
+
+  <!-- ================= Frame 2 : 账户 ================= -->
+  <g transform="translate(290,104)">
+    <rect class="frm" x="0" y="0" width="222" height="408" rx="18"/>
+    <rect class="hdr" x="1" y="1" width="220" height="46" rx="17"/>
+    <circle cx="16" cy="24" r="3.5" fill="#10b981"/>
+    <text x="26" y="28" class="mini" style="font-weight:700;fill:#374151">用量中心</text>
+    <text x="206" y="28" class="mini" text-anchor="end" style="font-size:9.5px">隐私 · 刷新 · 设置</text>
+
+    <rect class="card" x="12" y="58" width="198" height="76" rx="10"/>
+    <rect x="22" y="68" width="26" height="13" rx="6.5" fill="#0ea5e9"/>
+    <text x="35" y="77.5" class="tag" text-anchor="middle">CN</text>
+    <text x="56" y="78" class="mini" style="font-weight:700;fill:#1f2937">账号 A</text>
+    <text x="24" y="100" class="lb">余额</text>
+    <text x="198" y="100" class="mini" text-anchor="end" style="font-weight:700;fill:#1f2937;font-size:12px">8,200</text>
+    <text x="24" y="122" class="mini" style="font-size:9.5px">3 个套餐 · 周期剩 62% · 11-01 重置</text>
+
+    <rect class="card" x="12" y="142" width="198" height="76" rx="10"/>
+    <rect x="22" y="152" width="26" height="13" rx="6.5" fill="#8b5cf6"/>
+    <text x="35" y="161.5" class="tag" text-anchor="middle">GLB</text>
+    <text x="56" y="162" class="mini" style="font-weight:700;fill:#1f2937">账号 B</text>
+    <text x="24" y="184" class="lb">余额</text>
+    <text x="198" y="184" class="mini" text-anchor="end" style="font-weight:700;fill:#1f2937;font-size:12px">4,280</text>
+    <text x="24" y="206" class="mini" style="font-size:9.5px">1 个套餐 · 周期剩 38% · 10-28 重置</text>
+
+    <rect class="card" x="12" y="226" width="198" height="50" rx="10"/>
+    <text x="24" y="246" class="mini" style="font-weight:700;fill:#b91c1c">余额偏低</text>
+    <text x="24" y="265" class="mini" style="font-size:9.5px">点卡片展开详情 ›</text>
+
+    <text x="24" y="300" class="mini" style="font-size:9.5px">（空状态：还没有账号，请在电脑端添加）</text>
+
+    <line x1="1" y1="363" x2="221" y2="363" stroke="#e5e7eb"/>
+    <text x="28" y="396" class="tlab taboff" text-anchor="middle">概览</text>
+    <text x="83" y="396" class="tlab tabon" text-anchor="middle">账户</text>
+    <text x="138" y="396" class="tlab taboff" text-anchor="middle">记录</text>
+    <text x="192" y="396" class="tlab taboff" text-anchor="middle" style="font-size:10px">DeepSeek</text>
+    <rect x="69" y="402" width="28" height="3" rx="1.5" fill="#0d9488"/>
+  </g>
+
+  <!-- ================= Frame 3 : 记录 ================= -->
+  <g transform="translate(540,104)">
+    <rect class="frm" x="0" y="0" width="222" height="408" rx="18"/>
+    <rect class="hdr" x="1" y="1" width="220" height="46" rx="17"/>
+    <circle cx="16" cy="24" r="3.5" fill="#10b981"/>
+    <text x="26" y="28" class="mini" style="font-weight:700;fill:#374151">用量中心</text>
+    <text x="206" y="28" class="mini" text-anchor="end" style="font-size:9.5px">隐私 · 刷新 · 设置</text>
+
+    <text x="24" y="74" class="sec">最近任务</text>
+    <rect class="card" x="12" y="84" width="198" height="46" rx="10"/>
+    <text x="24" y="104" class="mini" style="font-weight:700;fill:#1f2937">写一份周报</text>
+    <text x="24" y="122" class="mini" style="font-size:9.5px">运行中 · 已用 128 积分</text>
+
+    <rect class="card" x="12" y="136" width="198" height="46" rx="10"/>
+    <text x="24" y="156" class="mini" style="font-weight:700;fill:#1f2937">整理表格数据</text>
+    <text x="24" y="174" class="mini" style="font-size:9.5px">已完成 · 已用 46 积分</text>
+
+    <text x="24" y="210" class="sec">最近积分变动</text>
+    <rect class="card" x="12" y="220" width="198" height="46" rx="10"/>
+    <text x="24" y="240" class="mini" style="font-weight:700;fill:#0d9488;font-size:12px">+100</text>
+    <text x="198" y="240" class="mini" text-anchor="end" style="font-size:9.5px">Buddy 加油站 · 09:00</text>
+    <text x="24" y="258" class="mini" style="font-weight:700;fill:#b91c1c;font-size:12px">-128</text>
+    <text x="198" y="258" class="mini" text-anchor="end" style="font-size:9.5px">任务消耗 · 08:41</text>
+
+    <text x="24" y="292" class="mini" style="font-size:9.5px">（空状态：暂无积分变动记录）</text>
+
+    <line x1="1" y1="363" x2="221" y2="363" stroke="#e5e7eb"/>
+    <text x="28" y="396" class="tlab taboff" text-anchor="middle">概览</text>
+    <text x="83" y="396" class="tlab taboff" text-anchor="middle">账户</text>
+    <text x="138" y="396" class="tlab tabon" text-anchor="middle">记录</text>
+    <text x="192" y="396" class="tlab taboff" text-anchor="middle" style="font-size:10px">DeepSeek</text>
+    <rect x="124" y="402" width="28" height="3" rx="1.5" fill="#0d9488"/>
+  </g>
+
+  <!-- ================= Frame 4 : DeepSeek ================= -->
+  <g transform="translate(790,104)">
+    <rect class="frm" x="0" y="0" width="222" height="408" rx="18"/>
+    <rect class="hdr" x="1" y="1" width="220" height="46" rx="17"/>
+    <circle cx="16" cy="24" r="3.5" fill="#10b981"/>
+    <text x="26" y="28" class="mini" style="font-weight:700;fill:#374151">用量中心</text>
+    <text x="206" y="28" class="mini" text-anchor="end" style="font-size:9.5px">隐私 · 刷新 · 设置</text>
+
+    <rect x="12" y="56" width="198" height="30" rx="8" fill="#f3f0ff"/>
+    <text x="20" y="68" class="mini" style="font-size:9px;fill:#6d28d9">独立于 WorkBuddy 积分</text>
+    <text x="20" y="80" class="mini" style="font-size:9px;fill:#6d28d9">手机直连官方余额接口 · 不经电脑</text>
+
+    <rect class="card" x="12" y="94" width="198" height="56" rx="10"/>
+    <text x="24" y="112" class="lb">DeepSeek 余额</text>
+    <text x="24" y="139" class="big" style="fill:#6d28d9">¥ 86.40</text>
+
+    <rect class="card" x="12" y="158" width="198" height="44" rx="10"/>
+    <text x="24" y="176" class="lb">今日消耗</text>
+    <text x="198" y="176" class="mini" text-anchor="end" style="font-weight:700;fill:#6d28d9;font-size:12px">¥ 1.28</text>
+    <text x="24" y="194" class="mini" style="font-size:9.5px">近 7 天消耗 ¥ 7.90</text>
+
+    <rect class="card" x="12" y="210" width="198" height="56" rx="10"/>
+    <text x="24" y="227" class="lb">余额走势</text>
+    <polyline points="24,255 50,249 76,252 102,241 128,245 154,235 180,239 200,231"
+              fill="none" stroke="#8b5cf6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="200" cy="231" r="2.8" fill="#8b5cf6"/>
+
+    <rect class="card" x="12" y="274" width="198" height="56" rx="10"/>
+    <text x="24" y="292" class="lb">最近消耗</text>
+    <text x="198" y="292" class="mini" text-anchor="end" style="font-size:9.5px">¥ 0.42 · 14:20</text>
+    <text x="24" y="312" class="mini" style="font-size:9px">余额下降才记一笔；长期不动属正常</text>
+
+    <line x1="1" y1="363" x2="221" y2="363" stroke="#e5e7eb"/>
+    <text x="28" y="396" class="tlab taboff" text-anchor="middle">概览</text>
+    <text x="83" y="396" class="tlab taboff" text-anchor="middle">账户</text>
+    <text x="138" y="396" class="tlab taboff" text-anchor="middle">记录</text>
+    <text x="192" y="396" class="tlab tabon" text-anchor="middle" style="font-size:10px">DeepSeek</text>
+    <rect x="178" y="402" width="28" height="3" rx="1.5" fill="#0d9488"/>
+  </g>
+
+  <!-- ================= Bottom row ================= -->
+  <g transform="translate(40,536)">
+    <rect class="box" x="0" y="0" width="310" height="152" rx="14"/>
+    <text x="16" y="24" class="sec">设置页 · 数据源设置</text>
+    <line x1="1" y1="34" x2="309" y2="34" stroke="#eceff3"/>
+    <text x="16" y="58" class="mini" style="font-weight:700;fill:#4b5563">伴侣服务地址</text>
+    <text x="30" y="76" class="mini" style="font-size:9.5px">公网地址（人在外面走这个）</text>
+    <text x="30" y="92" class="mini" style="font-size:9.5px">局域网地址（在家同一 WiFi，更快）</text>
+    <text x="16" y="114" class="mini" style="font-weight:700;fill:#4b5563">访问令牌</text>
+    <text x="72" y="114" class="mini" style="font-size:9.5px">（可留空）</text>
+    <text x="16" y="134" class="mini" style="font-size:9.5px">采样间隔 5/10/15/30 分 · 余额预警阈值 · 通知 · 清空采样历史</text>
+  </g>
+
+  <g transform="translate(366,536)">
+    <rect class="box" x="0" y="0" width="310" height="152" rx="14"/>
+    <text x="16" y="24" class="sec">桌面小组件（两种尺寸）</text>
+    <line x1="1" y1="34" x2="309" y2="34" stroke="#eceff3"/>
+    <rect x="16" y="46" width="132" height="72" rx="10" fill="#ffffff" stroke="#eceff3"/>
+    <text x="26" y="64" class="lb" style="font-size:10px">总剩余积分</text>
+    <text x="26" y="84" class="vl" style="font-size:14px">12,480</text>
+    <text x="26" y="104" class="mini" style="font-size:9.5px">今日已签 ✓</text>
+    <rect x="162" y="46" width="132" height="72" rx="10" fill="#ffffff" stroke="#eceff3"/>
+    <text x="172" y="64" class="lb" style="font-size:10px">总剩余积分</text>
+    <text x="172" y="84" class="vl" style="font-size:14px">12,480</text>
+    <text x="172" y="104" class="mini" style="font-size:9.5px">2 个进行中 · 今日已签</text>
+    <text x="16" y="138" class="mini" style="font-size:9.5px">最下一行是 DeepSeek 余额与今日消耗（蓝紫色，一眼区分）</text>
+  </g>
+
+  <g transform="translate(692,536)">
+    <rect class="box" x="0" y="0" width="308" height="152" rx="14"/>
+    <text x="16" y="24" class="sec">电脑端 Web 面板（127.0.0.1:8765）</text>
+    <line x1="1" y1="34" x2="307" y2="34" stroke="#eceff3"/>
+    <rect x="16" y="46" width="84" height="20" rx="6" fill="#e6f6f3"/>
+    <text x="58" y="60" class="mini" text-anchor="middle" style="font-size:9px;fill:#0d9488;font-weight:700">导入本机账号</text>
+    <rect x="106" y="46" width="86" height="20" rx="6" fill="#eef2ff"/>
+    <text x="149" y="60" class="mini" text-anchor="middle" style="font-size:9px;fill:#4338ca;font-weight:700">扫码登录新账号</text>
+    <rect x="198" y="46" width="56" height="20" rx="6" fill="#f3f4f6"/>
+    <text x="226" y="60" class="mini" text-anchor="middle" style="font-size:9px">刷新数据</text>
+    <rect x="260" y="46" width="32" height="20" rx="6" fill="#f3f4f6"/>
+    <text x="276" y="60" class="mini" text-anchor="middle" style="font-size:9px">筛选</text>
+    <text x="16" y="88" class="mini" style="font-size:9.5px">筛选：全部 / CN / Global / 耗尽</text>
+    <text x="16" y="108" class="mini" style="font-size:9.5px">账号卡：区域 · 今日已签 · 自动签到 · 耗尽自动关 / 删</text>
+    <text x="16" y="128" class="mini" style="font-size:9.5px">折叠面板：添加新账号 · 跨账号会话迁移（源 → 目标）</text>
+    <text x="16" y="146" class="mini" style="font-size:9px">另有浏览器小组件 widget.html</text>
+  </g>
+</svg>
