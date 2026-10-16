@@ -15,6 +15,10 @@
 
 两者**可以只用其中一个，也可以一起用**，彼此不依赖。
 
+![WorkBuddy 安卓 App 界面地图](local-monitor/docs/app-screens.png)
+
+> 上图为**界面结构示意**（虚构数据），用来说明 App 里有什么；完整的逐页说明见 [local-monitor/README.md](local-monitor/README.md)。
+
 ---
 
 ## 怎么选

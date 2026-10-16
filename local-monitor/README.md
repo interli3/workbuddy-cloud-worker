@@ -51,7 +51,7 @@ WorkBuddy 本机登录状态 / 本地数据库
 
 ## 界面介绍
 
-![安卓 App 界面地图](docs/app-screens.svg)
+![安卓 App 界面地图](docs/app-screens.png)
 
 > 上图为**界面结构示意**（虚构数据），用来说明每个页面有什么；实际界面以安装后的版本为准。
 
