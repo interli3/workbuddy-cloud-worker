@@ -1,16 +1,43 @@
-# 真实配置与运行态，绝不入库
+# ============ 通用：真实配置与运行态，绝不入库 ============
 config.json
 state.json
 run.log
 *.log
 
-# 依赖与系统文件
+# ============ 本地看板 / Android App（local-monitor） ============
+credentials.json
+credentials.json.*
+config.local.json
+data/
+exports/
+.workbuddy/
+*.info
+*.poc
+*.enc
+vault/
+mobile/gen/
+mobile/obj/
+mobile/dex/
+mobile/out/
+mobile/res.zip
+mobile/sources.txt
+mobile/*.jks
+mobile/*.keystore
+mobile/.keystore-password
+mobile/java/**/LocalConfig.java
+mobile/_daymark_multi.json
+mobile/public_url.txt
+mobile/__pycache__/
+*.pyc
+
+# ============ 依赖与系统文件 ============
 node_modules/
 .DS_Store
 Thumbs.db
+desktop.ini
 *.bak
 *.bak_*
 
-# 各种编辑器
+# ============ 编辑器 ============
 .vscode/
 .idea/

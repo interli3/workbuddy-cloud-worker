@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 深色玻璃页面底：深墨蓝渐变 + 三处柔光晕（左上薄荷青 / 右上琥珀 / 中下霓虹蓝）
+     纯静态 drawable，无动态模糊开销 -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <gradient android:angle="135"
+                android:startColor="#FF06131C"
+                android:centerColor="#FF0A1E2C"
+                android:endColor="#FF08182A" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <gradient android:type="radial"
+                android:centerX="0.04" android:centerY="0.02"
+                android:gradientRadius="520dp"
+                android:startColor="#3D1FBF9C" android:endColor="#00000000" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <gradient android:type="radial"
+                android:centerX="1.0" android:centerY="0.05"
+                android:gradientRadius="480dp"
+                android:startColor="#2ED9A441" android:endColor="#00000000" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <gradient android:type="radial"
+                android:centerX="0.5" android:centerY="0.62"
+                android:gradientRadius="620dp"
+                android:startColor="#2E2E6CF0" android:endColor="#00000000" />
+        </shape>
+    </item>
+</layer-list>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- DeepSeek 小组件背景：与宿主 WorkBuddy 工具箱的小组件保持一致 —— 纯全透明。
+     可读性由布局内 TextView 的白色光晕阴影（shadowColor #A6000000）保证，
+     这样浅色 / 深色壁纸都不至于糊成一块。 -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <solid android:color="#00000000" />
+</shape>

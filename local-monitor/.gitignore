@@ -1,0 +1,35 @@
+node_modules/
+credentials.json
+credentials.json.*
+config.local.json
+data/
+exports/
+.workbuddy/
+*.info
+*.log
+*.poc
+*.enc
+vault/
+
+# Android build output and local signing material
+mobile/gen/
+mobile/obj/
+mobile/dex/
+mobile/out/
+mobile/res.zip
+mobile/sources.txt
+mobile/*.jks
+mobile/*.keystore
+mobile/.keystore-password
+mobile/java/**/LocalConfig.java
+mobile/_daymark_multi.json
+mobile/public_url.txt
+mobile/__pycache__/
+*.pyc
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+desktop.ini

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- ===== 深色玻璃 · 主题（2026-09-28 改版）=====
+         深墨蓝底 + 半透明白玻璃卡 + 反白三级文字 + 霓虹青蓝主色。
+         注意：Android 颜色一律 #AARRGGBB（AA 在前）。 -->
+    <color name="bg">#FF06131C</color>
+    <color name="card">#1AFFFFFF</color>
+    <color name="stroke">#26FFFFFF</color>
+    <color name="tile">#12FFFFFF</color>
+    <color name="divider">#1FFFFFFF</color>
+
+    <!-- 文字三级：深底上由亮到暗 -->
+    <color name="text">#FFEAF4FF</color>
+    <color name="text_dim">#B3D8E8F8</color>
+    <color name="text_faint">#8A9BB8D0</color>
+
+    <!-- 主色：霓虹青蓝。深色主题下"deep"取更亮的一档，保证小字在深底上可读 -->
+    <color name="accent">#FF4FA3FF</color>
+    <color name="accent_bright">#FF7FC8FF</color>
+    <color name="accent_soft">#263FA0FF</color>
+    <color name="accent_deep">#FF8FD4FF</color>
+
+    <color name="blue">#FF5FA8FF</color>
+    <color name="blue_soft">#263F88FF</color>
+    <color name="purple">#FFB98CFF</color>
+    <color name="purple_soft">#2E8B5CF6</color>
+
+    <!-- 语义色：深底提亮版 -->
+    <color name="warn">#FFFFC46B</color>
+    <color name="warn_soft">#2EFFA726</color>
+    <color name="danger">#FFFF8A9B</color>
+    <color name="danger_soft">#2EFF4D6A</color>
+
+    <!-- 兼容旧布局引用 -->
+    <color name="accent2">#FFB98CFF</color>
+    <color name="accent3">#FF4FA3FF</color>
+    <color name="surface">#1AFFFFFF</color>
+    <color name="track">#1FFFFFFF</color>
+    <color name="glass">#1AFFFFFF</color>
+    <color name="glass_stroke">#2EFFFFFF</color>
+    <color name="idle">#FF7C93AD</color>
+
+    <!-- 兼容旧 drawable 残留引用 -->
+    <color name="accent_dim">#FF7C93AD</color>
+
+    <color name="transparent">#00000000</color>
+    <color name="ic_bg">#FF2E6CF0</color>
+    <color name="ic_fg">#FFFFFFFF</color>
+
+    <!-- 小组件专用（纯透明背景 + 浅色文字，配深色光晕；勿与 App 内同名色混用） -->
+    <color name="wtext">#FFFFFFFF</color>
+    <color name="wtext_dim">#FFC7D0DC</color>
+    <color name="wtext_faint">#FF9AA6B8</color>
+    <color name="wmint">#FF34D399</color>
+    <color name="wpurple">#FFC4B5FD</color>
+    <color name="wamber">#FFFBBF24</color>
+</resources>

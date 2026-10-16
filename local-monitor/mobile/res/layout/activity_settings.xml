@@ -1,0 +1,571 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg"
+    android:fitsSystemWindows="true"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp"
+    android:paddingTop="20dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/title_settings"
+        android:textColor="@color/text"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="6dp"
+        android:clipToPadding="false"
+        android:paddingBottom="28dp"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="填写伴侣服务地址后，手机可实时读取电脑上的积分与任务"
+                android:textColor="@color/text_dim"
+                android:textSize="12sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/bg_card"
+                android:layout_marginTop="18dp"
+                android:padding="18dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="公网地址 · 人在外面走这个"
+                    android:textColor="@color/accent"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:id="@+id/etHost"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:hint="https://xxx.trycloudflare.com"
+                    android:textColor="@color/text"
+                    android:textColorHint="@color/idle"
+                    android:textSize="14sp"
+                    android:inputType="textUri"
+                    android:fontFamily="monospace"
+                    android:background="@drawable/bg_row"
+                    android:padding="12dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:text="局域网地址 · 在家同一 WiFi 走这个（更快）"
+                    android:textColor="@color/text_dim"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:id="@+id/etLan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:hint="http://192.168.1.100:8791"
+                    android:textColor="@color/text"
+                    android:textColorHint="@color/idle"
+                    android:textSize="14sp"
+                    android:inputType="textUri"
+                    android:fontFamily="monospace"
+                    android:background="@drawable/bg_row"
+                    android:padding="12dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:text="@string/hint_token"
+                    android:textColor="@color/text_dim"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:id="@+id/etToken"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:hint="可留空"
+                    android:textColor="@color/text"
+                    android:textColorHint="@color/idle"
+                    android:textSize="14sp"
+                    android:inputType="text"
+                    android:fontFamily="monospace"
+                    android:background="@drawable/bg_row"
+                    android:padding="12dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:text="@string/lbl_interval"
+                    android:textColor="@color/text_dim"
+                    android:textSize="12sp" />
+
+                <Spinner
+                    android:id="@+id/spInterval"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_row"
+                    android:popupBackground="#FF101F2B"
+                    android:padding="8dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="16dp">
+
+                <Button
+                    android:id="@+id/btnTest"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/btn_test"
+                    android:textAllCaps="false"
+                    android:textColor="@color/text"
+                    android:background="@drawable/bg_row" />
+
+                <Button
+                    android:id="@+id/btnSave"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="12dp"
+                    android:text="@string/btn_save"
+                    android:textAllCaps="false"
+                    android:textColor="@color/bg"
+                    android:backgroundTint="@color/accent" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvResult"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text=""
+                android:textColor="@color/text_dim"
+                android:textSize="12sp"
+                android:fontFamily="monospace" />
+
+            <!-- ============================================================ -->
+            <!--        DeepSeek 余额（另一本账：与上面的 WorkBuddy 积分无关）   -->
+            <!-- ============================================================ -->
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="26dp"
+                android:background="@color/divider" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:text="DeepSeek 余额"
+                android:textColor="@color/text"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:lineSpacingExtra="2dp"
+                android:text="DeepSeek API 的账户余额，与上面的 WorkBuddy 积分是完全独立的两本账。手机直连 api.deepseek.com，不经过电脑端伴侣服务；API Key 只保存在本机。"
+                android:textColor="@color/text_faint"
+                android:textSize="11.5sp" />
+
+            <!-- API Key -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/bg_card"
+                android:layout_marginTop="14dp"
+                android:padding="18dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="DeepSeek API Key"
+                        android:textColor="@color/text"
+                        android:textSize="13.5sp" />
+
+                    <TextView
+                        android:id="@+id/dsTvKeyState"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_chip_dim"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:paddingTop="3dp"
+                        android:paddingBottom="3dp"
+                        android:text=""
+                        android:textColor="@color/text_dim"
+                        android:textSize="10sp" />
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/dsEtKey"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:hint="sk-…"
+                    android:inputType="textPassword"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="@color/text"
+                    android:textColorHint="@color/idle"
+                    android:textSize="13sp"
+                    android:fontFamily="monospace"
+                    android:background="@drawable/bg_row"
+                    android:padding="12dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/dsBtnSaveKey"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="保存并校验"
+                        android:textAllCaps="false"
+                        android:textColor="@color/bg"
+                        android:backgroundTint="@color/ds_brand_solid" />
+
+                    <Button
+                        android:id="@+id/dsBtnClearKey"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="10dp"
+                        android:text="清空"
+                        android:textAllCaps="false"
+                        android:textColor="@color/text"
+                        android:background="@drawable/bg_row" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/dsTvKeyResult"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:lineSpacingExtra="2dp"
+                    android:text=""
+                    android:textColor="@color/text_dim"
+                    android:textSize="11.5sp" />
+            </LinearLayout>
+
+            <!-- 采样间隔 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/bg_card"
+                android:layout_marginTop="12dp"
+                android:padding="18dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="采样间隔"
+                    android:textColor="@color/text"
+                    android:textSize="13.5sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:lineSpacingExtra="2dp"
+                    android:text="后台按此间隔自动采样。间隔越短，「实时消耗」越准，代价是耗电与流量；想立刻取一次数，点 DeepSeek 页右上角的刷新键。15 分钟是推荐值。"
+                    android:textColor="@color/text_faint"
+                    android:textSize="10.5sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/bg_segment_track"
+                    android:orientation="horizontal"
+                    android:padding="4dp">
+
+                    <TextView
+                        android:id="@+id/dsIv5"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_segment_idle"
+                        android:gravity="center"
+                        android:text="5分"
+                        android:textColor="@color/text_dim"
+                        android:textSize="11.5sp" />
+
+                    <TextView
+                        android:id="@+id/dsIv10"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_segment_idle"
+                        android:gravity="center"
+                        android:text="10分"
+                        android:textColor="@color/text_dim"
+                        android:textSize="11.5sp" />
+
+                    <TextView
+                        android:id="@+id/dsIv15"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_segment_active"
+                        android:gravity="center"
+                        android:text="15分"
+                        android:textColor="@color/accent_deep"
+                        android:textSize="11.5sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/dsIv30"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_segment_idle"
+                        android:gravity="center"
+                        android:text="30分"
+                        android:textColor="@color/text_dim"
+                        android:textSize="11.5sp" />
+
+                    <TextView
+                        android:id="@+id/dsIv60"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_segment_idle"
+                        android:gravity="center"
+                        android:text="1时"
+                        android:textColor="@color/text_dim"
+                        android:textSize="11.5sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- 预警与通知 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/bg_card"
+                android:layout_marginTop="12dp"
+                android:padding="18dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="余额预警"
+                            android:textColor="@color/text"
+                            android:textSize="13.5sp" />
+
+                        <TextView
+                            android:id="@+id/dsTvWarnSub"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="低于阈值发通知，回升后重新武装"
+                            android:textColor="@color/text_faint"
+                            android:textSize="10.5sp" />
+                    </LinearLayout>
+
+                    <Switch
+                        android:id="@+id/dsSwWarn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <EditText
+                        android:id="@+id/dsEtWarn"
+                        android:layout_width="0dp"
+                        android:layout_height="44dp"
+                        android:layout_weight="1"
+                        android:hint="预警阈值，例如 10"
+                        android:inputType="numberDecimal"
+                        android:textColor="@color/text"
+                        android:textColorHint="@color/idle"
+                        android:textSize="13sp"
+                        android:singleLine="true"
+                        android:background="@drawable/bg_row"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="12dp" />
+
+                    <Button
+                        android:id="@+id/dsBtnSaveWarn"
+                        android:layout_width="96dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="保存"
+                        android:textAllCaps="false"
+                        android:textColor="@color/text"
+                        android:background="@drawable/bg_row" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/divider" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="允许发通知"
+                        android:textColor="@color/text"
+                        android:textSize="13.5sp" />
+
+                    <Switch
+                        android:id="@+id/dsSwNotify"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/dsTvNotifyState"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:lineSpacingExtra="2dp"
+                    android:text=""
+                    android:textColor="@color/text_faint"
+                    android:textSize="10.5sp" />
+
+                <Button
+                    android:id="@+id/dsBtnTestNotify"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="发送一条测试通知"
+                    android:textAllCaps="false"
+                    android:textColor="@color/text"
+                    android:background="@drawable/bg_row" />
+            </LinearLayout>
+
+            <!-- 桌面小组件 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/bg_card"
+                android:layout_marginTop="12dp"
+                android:padding="18dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="桌面小组件"
+                    android:textColor="@color/text"
+                    android:textSize="13.5sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:lineSpacingExtra="2dp"
+                    android:text="小组件还是原来那一个（长按桌面 → 小组件 → 用量中心），没有新增。DeepSeek 余额会作为最下面一行显示在里面，与上面的 WorkBuddy 内容是两本账。"
+                    android:textColor="@color/text_faint"
+                    android:textSize="10.5sp" />
+            </LinearLayout>
+
+            <!-- 数据 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/bg_card"
+                android:layout_marginTop="12dp"
+                android:padding="18dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="采样数据"
+                    android:textColor="@color/text"
+                    android:textSize="13.5sp" />
+
+                <TextView
+                    android:id="@+id/dsTvDataInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:lineSpacingExtra="3dp"
+                    android:text=""
+                    android:textColor="@color/text_dim"
+                    android:textSize="11.5sp" />
+
+                <Button
+                    android:id="@+id/dsBtnClearHistory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="清空采样历史"
+                    android:textAllCaps="false"
+                    android:textColor="@color/danger"
+                    android:background="@drawable/bg_row" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

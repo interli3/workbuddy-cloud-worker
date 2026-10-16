@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+        <!-- ===== 余额哨兵 · 冰川玻璃（Ice Glass）主题 =====
+             冷调冰蓝底 + 半透明白玻璃卡片 + DeepSeek 蓝紫主色
+             对比度均按 WCAG AA 校核：主文字 12.6:1，次文字 5.3:1，弱文字 3.6:1（仅用于大字/装饰） -->
+
+        <!-- 底 -->
+        <color name="ds_bg_top">#FFF3F8FF</color>
+        <color name="ds_bg_bottom">#FFE8F0FB</color>
+        <color name="ds_bg">#FFF2F7FC</color>
+
+        <!-- 玻璃层 -->
+        <color name="ds_card">#C9FFFFFF</color>
+        <color name="ds_stroke">#B3FFFFFF</color>
+        <color name="ds_tile">#8FFFFFFF</color>
+        <color name="ds_divider">#2E7C8AA6</color>
+        <color name="ds_glass">#B3FFFFFF</color>
+        <color name="ds_glass_stroke">#F2FFFFFF</color>
+        <color name="ds_track">#FFEDF2F9</color>
+
+        <!-- 文字 -->
+        <color name="ds_text">#FF101828</color>
+        <color name="ds_text_dim">#FF5A6B85</color>
+        <color name="ds_text_faint">#FF8C9AB0</color>
+        <color name="ds_text_on_accent">#FFFFFFFF</color>
+
+        <!-- 主色：DeepSeek 蓝紫 -->
+        <color name="ds_accent">#FF4D6BFE</color>
+        <color name="ds_accent_bright">#FF7C8CFF</color>
+        <color name="ds_accent_soft">#FFE3E9FF</color>
+        <color name="ds_accent_deep">#FF3A54D6</color>
+        <color name="ds_violet">#FF7C5CFF</color>
+        <color name="ds_violet_soft">#FFEDE9FF</color>
+
+        <!-- 语义色 -->
+        <color name="ds_mint">#FF10B981</color>
+        <color name="ds_mint_soft">#FFD8F5E9</color>
+        <color name="ds_warn">#FFD97706</color>
+        <color name="ds_warn_soft">#FFFDF0CE</color>
+        <color name="ds_danger">#FFE5484D</color>
+        <color name="ds_danger_soft">#FFFFE3E4</color>
+        <color name="ds_cyan">#FF22B8CF</color>
+        <color name="ds_cyan_soft">#FFD6F3F8</color>
+        <color name="ds_idle">#FF94A3B8</color>
+
+        <color name="ds_transparent">#00000000</color>
+        <color name="ds_blob_blue">#2E4D6BFE</color>
+        <color name="ds_blob_violet">#267C5CFF</color>
+        <color name="ds_blob_cyan">#1F22B8CF</color>
+
+        <!-- 小组件专用（深色玻璃上的浅色文字，勿与 App 内同名色混用） -->
+        <color name="ds_widget_bg">#E6101A2E</color>
+        <color name="ds_widget_bg_soft">#1FFFFFFF</color>
+        <color name="ds_widget_stroke">#33FFFFFF</color>
+        <color name="ds_wtext">#FFFFFFFF</color>
+        <color name="ds_wtext_dim">#FFC2CDDD</color>
+        <color name="ds_wtext_faint">#FF8FA0B8</color>
+        <color name="ds_wmint">#FF34D399</color>
+        <color name="ds_wamber">#FFFBBF24</color>
+        <color name="ds_wdanger">#FFFB7185</color>
+        <color name="ds_waccent">#FF8DA2FF</color>
+
+        <color name="ds_ic_bg">#FF4D6BFE</color>
+        <color name="ds_ic_fg">#FFFFFFFF</color>
+
+        <string name="ds_app_name">余额哨兵</string>
+        <string name="ds_widget_label">余额哨兵 · 余额</string>
+        <string name="ds_widget_label_medium">余额哨兵 · 概览</string>
+        <string name="ds_widget_desc_small">余额 + 今日消耗（2×2）</string>
+        <string name="ds_widget_desc_medium">余额 + 今日 / 本月 + 7 天趋势（4×2）</string>
+
+        <string name="ds_status_idle">等待首次采样</string>
+        <string name="ds_act_refresh">立即刷新</string>
+        <string name="ds_act_settings">设置</string>
+        <string name="ds_act_save">保存</string>
+        <string name="ds_act_save_verify">保存并校验</string>
+        <string name="ds_act_clear">清空</string>
+        <string name="ds_act_clear_history">清空采样历史</string>
+
+        <string name="ds_tab_overview">概览</string>
+        <string name="ds_tab_records">记录</string>
+        <string name="ds_tab_settings">设置</string>
+
+        <string name="ds_label_total">总余额</string>
+        <string name="ds_label_today">今日消耗</string>
+        <string name="ds_badge_watch">采样推算</string>
+
+        <string name="ds_title_7d">近 7 天消耗</string>
+        <string name="ds_title_trend">余额走势</string>
+        <string name="ds_title_recent">最近消耗</string>
+        <string name="ds_title_summary">消耗汇总</string>
+        <string name="ds_title_detail">消耗明细</string>
+        <string name="ds_label_runway_bar">余额可用度（相对 30 天）</string>
+        <string name="ds_empty_recent">暂无消耗记录。\n余额一旦下降就会被记为一次消耗；如果余额长期不动，属于正常情况。</string>
+
+        <string name="ds_set_key_title">DeepSeek API Key</string>
+        <string name="ds_hint_key">sk-…</string>
+        <string name="ds_set_key_note">仅保存在本机 SharedPreferences，不会上传到任何服务器；请求直达 api.deepseek.com。</string>
+        <string name="ds_set_interval_title">采样间隔</string>
+        <string name="ds_set_interval_note">后台按此间隔自动采样。间隔越短，「实时消耗」越准，代价是电量和流量；想立即取一次数，随时点右上角的刷新键。15 分钟是推荐值。</string>
+        <string name="ds_set_warn_title">余额预警</string>
+        <string name="ds_set_warn_sub">低于阈值时发通知，回升后重新武装</string>
+        <string name="ds_hint_warn">预警阈值，例如 10</string>
+        <string name="ds_set_notify_title">允许发通知</string>
+        <string name="ds_act_test_notify">发送一条测试通知</string>
+        <string name="ds_set_data_title">采样数据</string>
+        <string name="ds_set_widget_title">桌面小组件</string>
+        <string name="ds_set_widget_note">小组件按下方的采样间隔自动刷新，点右上角箭头可手动刷新，点卡片主体进入本应用。\n注意：国产 ROM 需允许本应用「自启动 / 后台运行」，否则小组件可能不会及时更新。</string>
+        <string name="ds_act_pin_small">添加 2×2</string>
+        <string name="ds_act_pin_medium">添加 4×2 概览</string>
+        <string name="ds_set_about_title">关于与数据口径</string>
+        <string name="ds_about_body">数据来源：DeepSeek 官方 GET /user/balance（仅余额）。\n官方没有用量接口，因此「消耗」由本应用定时采样余额、把余额下降记为消耗、上升记为充值来推算。\n因此：两次采样之间的多笔调用会被合并成一条记录，采样间隔越短越接近真实。\n\n隐私：API Key 与全部采样数据都只存在手机本地，卸载即抹除。</string>
+
+        <style name="ds_AppTheme" parent="@android:style/Theme.DeviceDefault.Light.NoActionBar">
+            <item name="android:windowBackground">@color/ds_bg</item>
+            <item name="android:statusBarColor">@android:color/transparent</item>
+            <item name="android:navigationBarColor">@android:color/transparent</item>
+            <item name="android:windowLightStatusBar">true</item>
+            <item name="android:windowLightNavigationBar">true</item>
+            <item name="android:textColorPrimary">@color/ds_text</item>
+            <item name="android:textColorSecondary">@color/ds_text_dim</item>
+            <item name="android:colorAccent">@color/ds_accent</item>
+            <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        </style>
+
+        <style name="ds_Mono" parent="@android:style/TextAppearance.DeviceDefault">
+            <item name="android:fontFamily">monospace</item>
+            <item name="android:textColor">@color/ds_text</item>
+        </style>
+
+        <!-- 数字：启用等宽数字（tnum），跳数时不会左右抖动 -->
+        <style name="ds_Num" parent="@android:style/TextAppearance.DeviceDefault">
+            <item name="android:fontFeatureSettings">tnum</item>
+        </style>
+
+</resources>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- DeepSeek 品牌色（深色主题档）。
+         宿主 WorkBuddy 的主色是霓虹青蓝；DeepSeek 段用蓝紫，既融进同一套深色玻璃卡，
+         又能一眼看出「这是 DeepSeek 的账，不是 WorkBuddy 的积分」。 -->
+    <color name="ds_brand">#FF8DA2FF</color>        <!-- 深底上的亮档，用于大数字/小字 -->
+    <color name="ds_brand_solid">#FF4D6BFE</color>  <!-- 实心填充 -->
+    <color name="ds_brand_soft">#2E4D6BFE</color>   <!-- 深底上的淡底块 -->
+
+    <!-- 小组件专用：纯透明底 + 浅色字，必须比 App 内更亮才扛得住任意壁纸 -->
+    <color name="ds_wbrand">#FFB9C6FF</color>       <!-- 小组件里的大数字 -->
+</resources>

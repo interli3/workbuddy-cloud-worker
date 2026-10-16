@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 顶部氛围光：薄荷青 -> 霓虹蓝 -> 透明，做标题栏背景的科技辉光 -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <gradient
+        android:angle="315"
+        android:startColor="#2E1FBF9C"
+        android:centerColor="#1A2E6CF0"
+        android:endColor="#00000000"
+        android:type="linear" />
+</shape>

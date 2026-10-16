@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 指标块：小标签 + 大数字 + 补充说明 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:orientation="vertical"
+    android:background="@drawable/ds_bg_tile"
+    android:padding="12dp">
+
+    <TextView
+        android:id="@+id/ds_tlLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:letterSpacing="0.04"
+        android:textColor="@color/ds_text_faint"
+        android:textSize="10.5sp" />
+
+    <TextView
+        android:id="@+id/ds_tlValue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:fontFeatureSettings="tnum"
+        android:textColor="@color/ds_text"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/ds_tlSub"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textColor="@color/ds_text_faint"
+        android:textSize="10sp" />
+</LinearLayout>

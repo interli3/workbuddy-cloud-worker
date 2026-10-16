@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>WorkBuddy 小组件</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: rgba(22,22,31,.92); color: #e6e6f0; font-family: -apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+    font-size: 13px; border-radius: 12px; overflow: hidden; width: 260px; }
+  .hd { display:flex; justify-content:space-between; align-items:center; padding:8px 12px; border-bottom:1px solid #33334a; }
+  .hd b { font-size: 13px; }
+  .dot { width:8px; height:8px; border-radius:50%; background:#4cd08a; }
+  .body { padding: 10px 12px; }
+  .big { font-size: 22px; font-weight: 700; }
+  .k { color:#9a9ab5; font-size:11px; }
+  .row { display:flex; justify-content:space-between; margin-top:6px; }
+  .row b { font-weight:500; }
+  .accts { margin-top:8px; border-top:1px solid #33334a; padding-top:6px; }
+  .a { display:flex; justify-content:space-between; font-size:12px; padding:2px 0; }
+  .ok { color:#4cd08a; } .no { color:#9a9ab5; }
+  .upd { color:#9a9ab5; font-size:10px; }
+</style>
+</head>
+<body>
+<div class="hd"><b>WorkBuddy</b><span class="dot" id="dot"></span></div>
+<div class="body">
+  <div class="big" id="bal">—</div>
+  <div class="k">总剩余积分（未禁用账号）</div>
+  <div class="row"><span class="k">当日消耗</span><b id="cons">—</b></div>
+  <div class="row"><span class="k">今日已签</span><b id="signed">—</b></div>
+  <div class="row"><span class="k">下次自动签到</span><b id="next">09:00 / 21:00</b></div>
+  <div class="accts" id="accts"></div>
+  <div class="upd" id="upd"></div>
+</div>
+<script>
+function fmt(n){ return n==null?'—':Number(n).toLocaleString('zh-CN'); }
+function today(){ return new Date().toISOString().slice(0,10); }
+async function tick(){
+  try{
+    const s = await (await fetch('/api/state')).json();
+    const accs = s.accounts.filter(a=>!a.disabled);
+    const bal = accs.reduce((x,a)=>x+(a._bal||0),0);
+    document.getElementById('bal').textContent = fmt(bal);
+    document.getElementById('cons').textContent = fmt(s.usage?.totalConsumed||0);
+    const signed = accs.filter(a=>a.lastCheckin===today()&&/签/.test(a.lastResult||'')).length;
+    document.getElementById('signed').textContent = signed+' / '+accs.length;
+    document.getElementById('accts').innerHTML = accs.map(a=>`<div class="a"><span>${a.name||a.nickname||a.uid}</span><span class="${a.lastCheckin===today()?'ok':'no'}">${a.lastCheckin===today()?'已签':'未签'}</span></div>`).join('') || '<div class="a"><span>无账号</span></div>';
+    document.getElementById('upd').textContent = '更新于 '+new Date().toLocaleTimeString('zh-CN');
+    document.getElementById('dot').style.background = '#4cd08a';
+  }catch(e){ document.getElementById('dot').style.background = '#ff6b6b'; }
+}
+tick(); setInterval(tick, 30000);
+</script>
+</body>
+</html>

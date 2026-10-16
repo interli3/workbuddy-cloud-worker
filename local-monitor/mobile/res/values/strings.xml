@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">work buddy工具</string>
+    <string name="widget_label">多账号积分</string>
+    <string name="title_settings">数据源设置</string>
+
+    <!-- 概览 -->
+    <string name="lbl_balance">总剩余积分</string>
+    <string name="lbl_used_today">今日消耗</string>
+    <string name="lbl_month_used">本月消耗</string>
+    <string name="lbl_used_total">累计消耗</string>
+    <string name="lbl_signed">今日签到</string>
+    <string name="lbl_accounts">账号</string>
+    <string name="lbl_packages">%1$d 个套餐</string>
+    <string name="lbl_health">健康度</string>
+    <string name="lbl_recent_tasks">最近任务</string>
+    <string name="lbl_credits_unit">积分</string>
+
+    <!-- 任务 -->
+    <string name="lbl_tasks">当前执行任务</string>
+    <string name="lbl_no_task">当前没有正在执行的任务</string>
+    <string name="lbl_running_count">%1$d 个进行中</string>
+    <string name="lbl_task_cost">已用 %1$s</string>
+    <string name="lbl_flow">最近积分变动</string>
+    <string name="lbl_no_flow">暂无积分变动记录</string>
+
+    <!-- 状态 -->
+    <string name="lbl_refresh">刷新</string>
+    <string name="lbl_settings">设置</string>
+    <string name="lbl_offline">电脑离线 · 显示最近快照</string>
+    <string name="lbl_online">已连接</string>
+    <string name="lbl_loading">正在拉取…</string>
+    <string name="lbl_no_data">暂无数据</string>
+    <string name="lbl_updated">更新于 %1$s</string>
+    <string name="lbl_ago">%1$d 秒前</string>
+    <string name="lbl_offline_badge">离线快照</string>
+    <string name="lbl_low_balance">余额偏低</string>
+    <string name="lbl_cred_expired">凭证已过期</string>
+    <string name="lbl_disabled">已禁用</string>
+    <string name="lbl_cycle_left">周期剩 %1$d%%</string>
+    <string name="lbl_cycle_end">%1$s 重置</string>
+    <string name="lbl_just_now">刚刚</string>
+    <string name="lbl_min_ago">%1$d 分钟前</string>
+    <string name="lbl_hour_ago">%1$d 小时前</string>
+    <string name="lbl_day_ago">%1$d 天前</string>
+    <string name="lbl_no_account">还没有账号，请在电脑端添加</string>
+    <string name="lbl_expand_hint">点卡片展开详情</string>
+
+    <!-- 设置页 -->
+    <string name="hint_host">伴侣服务地址</string>
+    <string name="hint_token">访问令牌（可留空）</string>
+    <string name="btn_save">保存并刷新</string>
+    <string name="btn_test">测试连接</string>
+    <string name="lbl_interval">自动刷新间隔</string>
+
+    <!-- 任务状态 -->
+    <string name="st_running">运行中</string>
+    <string name="st_waiting">等待输入</string>
+    <string name="st_done">已完成</string>
+    <string name="st_failed">失败</string>
+    <string name="st_stopped">已停止</string>
+    <string name="st_idle">空闲</string>
+
+    <!-- 智能洞察 -->
+    <string name="ins_cred_expired">凭证已过期</string>
+    <string name="ins_cred_expired_d">%1$s 的凭证已过期，自动签到可能失败</string>
+    <string name="ins_cycle_low">周期额度告急</string>
+    <string name="ins_cycle_low_d">%1$s 本周期仅剩 %2$d%%（%3$s 积分），%4$s 重置</string>
+    <string name="ins_unsigned">今日未签到</string>
+    <string name="ins_unsigned_d">还有 %1$d 个账号未签到：%2$s</string>
+    <string name="ins_runway">余额可用天数</string>
+    <string name="ins_runway_d">按最近消耗速度，%1$s 积分约可用 %2$s 天</string>
+    <string name="ins_running">任务执行中</string>
+    <string name="ins_running_d">%1$d 个任务正在执行，本次已消耗 %2$s 积分</string>
+    <string name="ins_failed">有任务失败</string>
+    <string name="ins_failed_d">最近有 %1$d 个任务执行失败，建议查看电脑端</string>
+    <string name="ins_ok">状态良好</string>
+    <string name="ins_ok_d">全部账号已签到，额度充足</string>
+    <string name="ins_offline">电脑离线</string>
+    <string name="ins_offline_d">当前显示的是最后一次快照，电脑开机后会自动恢复</string>
+</resources>

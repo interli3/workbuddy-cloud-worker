@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>WorkBuddy 多账号面板</title>
+<style>
+  :root {
+    --bg: #16161f; --panel: #1f1f2b; --panel2: #272737; --line: #33334a;
+    --text: #e6e6f0; --muted: #9a9ab5; --accent: #7c8cff; --green: #4cd08a;
+    --red: #ff6b6b; --amber: #ffb454; --cyan: #5fd3e0;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font-family: -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; font-size: 14px; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 20px; }
+  header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+  h1 { font-size: 20px; margin: 0; font-weight: 600; }
+  .sub { color: var(--muted); font-size: 12px; }
+  .toolbar { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
+  button { background: var(--panel2); color: var(--text); border: 1px solid var(--line); padding: 8px 14px; border-radius: 8px; cursor: pointer; font-size: 13px; }
+  button:hover { border-color: var(--accent); }
+  button.primary { background: var(--accent); border-color: var(--accent); color: #111; font-weight: 600; }
+  button.danger { color: var(--red); }
+  .summary { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 12px 0; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 14px; }
+  .summary .card .v { font-size: 22px; font-weight: 700; }
+  .summary .card .k { color: var(--muted); font-size: 12px; margin-top: 4px; }
+  .chips { display: flex; gap: 8px; margin: 10px 0; flex-wrap: wrap; }
+  .chip { padding: 6px 14px; border-radius: 20px; border: 1px solid var(--line); background: var(--panel); cursor: pointer; color: var(--muted); }
+  .chip.active { background: var(--accent); color: #111; border-color: var(--accent); font-weight: 600; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; }
+  .acct { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 14px; position: relative; }
+  .acct.off { opacity: .55; }
+  .acct .top { display: flex; justify-content: space-between; align-items: center; }
+  .acct .name { font-weight: 600; font-size: 15px; }
+  .tag { font-size: 11px; padding: 2px 8px; border-radius: 6px; }
+  .tag.CN { background: rgba(124,140,255,.18); color: var(--accent); }
+  .tag.Global { background: rgba(95,211,224,.18); color: var(--cyan); }
+  .tag.dis { background: rgba(255,107,107,.18); color: var(--red); }
+  .tag.exp { background: rgba(255,180,84,.18); color: var(--amber); }
+  .row { display: flex; justify-content: space-between; color: var(--muted); font-size: 12px; margin-top: 6px; }
+  .row b { color: var(--text); font-weight: 500; }
+  .bal { font-size: 18px; font-weight: 700; margin: 8px 0; }
+  .res { font-size: 11px; color: var(--muted); max-height: 60px; overflow: auto; }
+  .acts { display: flex; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
+  .acts button { padding: 5px 10px; font-size: 12px; }
+  .sw { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); }
+  .auto-box { display: flex; align-items: center; gap: 14px; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px; flex-wrap: wrap; }
+  .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: var(--panel2); border: 1px solid var(--line); padding: 10px 18px; border-radius: 8px; opacity: 0; transition: .25s; }
+  .toast.show { opacity: 1; }
+  label.chk { display: flex; align-items: center; gap: 6px; cursor: pointer; }
+  input[type=checkbox] { width: 16px; height: 16px; accent-color: var(--accent); }
+  .empty { color: var(--muted); text-align: center; padding: 40px; }
+  .modal { position: fixed; inset: 0; background: rgba(0,0,0,.55); display: flex; align-items: center; justify-content: center; z-index: 50; }
+  .modal .card { max-width: 680px; width: 92%; max-height: 84vh; overflow: auto; }
+  .codebox { font-size: 26px; font-weight: 700; letter-spacing: 4px; background: var(--panel2); border: 1px dashed var(--accent); border-radius: 10px; padding: 14px 18px; text-align: center; margin: 10px 0; }
+  select { background: var(--panel2); color: var(--text); border: 1px solid var(--line); border-radius: 8px; padding: 6px 10px; }
+  .sess { display: flex; align-items: center; gap: 8px; padding: 8px; border: 1px solid var(--line); border-radius: 8px; margin-bottom: 6px; }
+  .sess .meta { flex: 1; }
+  .sess .meta b { color: var(--text); }
+  .sess .meta span { color: var(--muted); font-size: 12px; }
+  a.primary { text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <h1>WorkBuddy 多账号面板</h1>
+      <div class="sub">本地只读本机登录态 · 调官方接口 · 凭证不出本机 · 自动签到(CN)</div>
+    </div>
+    <div class="auto-box">
+      <label class="chk"><input type="checkbox" id="autoChk" /> 自动签到(CN)</label>
+      <span class="sub" id="autoTimes"></span>
+      <label class="chk"><input type="checkbox" id="expDis" /> 耗尽自动关</label>
+      <label class="chk"><input type="checkbox" id="expDel" /> 耗尽自动删</label>
+    </div>
+  </header>
+
+  <div class="toolbar">
+    <button class="primary" id="btnImport">导入本机账号</button>
+    <button id="btnLogin">扫码登录新账号</button>
+    <button id="btnRefresh">刷新数据</button>
+    <button class="primary" id="btnCheckinAll">全部签到</button>
+    <button id="btnClaimAll">全部领取(Global)</button>
+    <button id="btnSessions">会话迁移</button>
+    <button id="btnAdd">+ 添加凭证</button>
+  </div>
+
+  <div class="summary" id="summary"></div>
+
+  <div class="chips" id="chips">
+    <span class="chip active" data-f="all">全部</span>
+    <span class="chip" data-f="CN">CN</span>
+    <span class="chip" data-f="Global">Global</span>
+    <span class="chip" data-f="exhausted">耗尽</span>
+  </div>
+
+  <div class="grid" id="grid"><div class="empty">暂无账号，点「导入本机账号」或「添加凭证」</div></div>
+</div>
+<div class="modal" id="loginModal" style="display:none">
+  <div class="card" style="max-width:500px">
+    <h3 style="margin:0 0 6px">添加新账号</h3>
+    <div class="sub">WorkBuddy 的登录 OAuth 锁定了回拨地址白名单，独立工具无法在浏览器里直接扫码入池（会返回 400）。可行做法：</div>
+    <ol class="sub" style="margin:8px 0 8px 18px;line-height:1.7">
+      <li>在 WorkBuddy 客户端登录你想加入的新账号（无需退出当前账号，客户端会保留多账号登录态）；</li>
+      <li>回到这里点下方「拉取当前客户端账号」，按 uid 自动合并进凭证池，不覆盖已有账号。</li>
+    </ol>
+    <div style="display:flex;gap:8px;margin-top:6px">
+      <button class="primary" id="btnPull">拉取当前客户端账号</button>
+      <button onclick="closeModal('loginModal')">关闭</button>
+    </div>
+    <div id="loginStatus" class="sub" style="margin-top:10px"></div>
+  </div>
+</div>
+
+<div class="modal" id="sessModal" style="display:none">
+  <div class="card">
+    <h3 style="margin:0 0 6px">跨账号会话迁移</h3>
+    <div class="sub">把某账号的本机会话（整文件夹）拷贝到目标账号的本地数据目录；目标账号需在 WorkBuddy 客户端至少登录过一次。迁移前会自动备份同名会话。</div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
+      <label class="sw">源账号 <select id="sessSrc"></select></label>
+      <label class="sw">目标账号 <select id="sessTgt"></select></label>
+    </div>
+    <div id="sessList" style="margin-top:10px"></div>
+    <div style="margin-top:10px;display:flex;gap:8px">
+      <button class="primary" id="btnMigrate">迁移选中</button>
+      <button id="btnExportSess">导出选中</button>
+      <button onclick="closeModal('sessModal')">关闭</button>
+    </div>
+    <div id="sessStatus" class="sub"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+let state = { accounts: [], settings: {} };
+let filter = 'all';
+
+function toast(m){ const t=document.getElementById('toast'); t.textContent=m; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),1800); }
+function api(method, path, body){ return fetch(path, {method, headers:{'Content-Type':'application/json'}, body: body?JSON.stringify(body):undefined}).then(r=>r.json()); }
+function fmt(n){ if(n==null) return '-'; return Number(n).toLocaleString('zh-CN'); }
+
+async function loadState(){ state = await api('GET','/api/state'); render(); }
+function render(){
+  document.getElementById('autoChk').checked = state.settings.autoCheckinCN;
+  document.getElementById('autoTimes').textContent = (state.settings.autoCheckinTimes||[]).join(' / ');
+  document.getElementById('expDis').checked = state.settings.expireAutoDisable;
+  document.getElementById('expDel').checked = state.settings.expireAutoDelete;
+
+  const accs = state.accounts;
+  const totalBal = accs.filter(a=>!a.disabled).reduce((s,a)=> s + (a._bal||0), 0);
+  const signed = accs.filter(a=>a.lastCheckin === today() && /签/.test(a.lastResult||'')).length;
+  const consumed = state.usage?.totalConsumed || 0;
+  document.getElementById('summary').innerHTML = [
+    ['账号数', accs.length],
+    ['未禁用', accs.filter(a=>!a.disabled).length],
+    ['今日已签', signed],
+    ['总剩余积分', fmt(totalBal)],
+    ['当日消耗', fmt(consumed)]
+  ].map(([k,v])=>`<div class="card"><div class="v">${v}</div><div class="k">${k}</div></div>`).join('');
+
+  const f = filter;
+  const list = accs.filter(a=>{
+    if(f==='all') return true;
+    if(f==='exhausted') return a.disabled===true;
+    return a.region===f;
+  });
+  const grid = document.getElementById('grid');
+  if(!list.length){ grid.innerHTML = '<div class="empty">无匹配账号</div>'; return; }
+  grid.innerHTML = list.map(a=>acctCard(a)).join('');
+}
+function today(){ return new Date().toISOString().slice(0,10); }
+
+function acctCard(a){
+  const regionTag = `<span class="tag ${a.region}">${a.region}</span>`;
+  const disTag = a.disabled ? `<span class="tag dis">${a.disabledReason||'已禁用'}</span>` : '';
+  const signed = a.lastCheckin===today() ? `<span class="tag exp">今日已签</span>` : '';
+  const u = state.usage?.byUid?.[a.uid];
+  const deltaTxt = u ? (u.delta<0? ` · 今日消耗 ${fmt(-u.delta)}` : (u.delta>0? ` · 今日 +${fmt(u.delta)}` : '')) : '';
+  const bal = a._bal!=null ? `<div class="bal">${fmt(a._bal)} 积分${deltaTxt}</div>` : '<div class="bal" style="color:var(--muted)">未刷新</div>';
+  return `<div class="acct ${a.disabled?'off':''}">
+    <div class="top"><div class="name">${esc(a.name||a.nickname||a.phone||'账号')}</div><div>${regionTag}${disTag}${signed}</div></div>
+    <div class="row"><span>UID/UIN</span><b>${a.uin||a.uid||'-'}</b></div>
+    <div class="row"><span>手机</span><b>${a.phone||'-'}</b></div>
+    <div class="row"><span>Token</span><b>${a.hasToken? a.tokenLen+' 字符':'无'}</b></div>
+    ${bal}
+    <div class="res">${a._res? esc(a._res) : (a.lastResult? esc(a.lastResult):'')}</div>
+    <div class="acts">
+      <button onclick="act('refresh','${a.id}')">刷新</button>
+      <button class="primary" onclick="act('checkin','${a.id}')">签到</button>
+      ${a.region==='Global'?`<button onclick="act('claim','${a.id}')">领取</button>`:''}
+      <button class="danger" onclick="act('del','${a.id}')">删除</button>
+      <label class="sw"><input type="checkbox" ${a.autoCheckin!==false?'checked':''} onchange="toggle('${a.id}','autoCheckin',this.checked)"/> 自动</label>
+      <label class="sw"><input type="checkbox" ${a.disabled?'checked':''} onchange="toggle('${a.id}','disabled',this.checked)"/> 禁用</label>
+    </div>
+  </div>`;
+}
+function esc(s){ return String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
+
+async function act(kind, id){
+  if(kind==='del'){ if(!confirm('确认删除该账号凭证？')) return; await api('DELETE',`/api/account/${id}`); toast('已删除'); }
+  else if(kind==='refresh'){ toast('刷新中…'); const d=await api('POST',`/api/refresh/${id}`); mergeData([d]); }
+  else if(kind==='checkin'){ toast('签到中…'); const d=await api('POST',`/api/checkin/${id}`); toast(d.result); await loadState(); }
+  else if(kind==='claim'){ toast('领取中…'); const d=await api('POST',`/api/claim/${id}`); toast(d.ok?'已领取':(d.reason||'未领取')); }
+  await loadState();
+}
+function mergeData(arr){ for(const d of arr){ const a=state.accounts.find(x=>x.id===d.id); if(a){ a._bal=d.totalBalance; a._res=(d.resources||[]).map(r=>`${r.name}:${r.balance}`).join(' | '); a.exhausted=d.exhausted; } } render(); }
+
+async function toggle(id, key, val){ await api('POST',`/api/toggle/${id}`,{[key]:val}); await loadState(); }
+
+document.getElementById('btnImport').onclick = async ()=>{ toast('导入本机账号…'); const r=await api('POST','/api/import-local'); toast(r.added?'已添加':(r.merged?'已更新':'未找到本机账号')); await loadState(); };
+document.getElementById('btnRefresh').onclick = async ()=>{ toast('刷新中…'); const r=await api('POST','/api/refresh-all'); mergeData(r.data||[]); toast('完成'); };
+document.getElementById('btnCheckinAll').onclick = async ()=>{ toast('全部签到中…'); const r=await api('POST','/api/checkin-all'); toast('完成 '+(r.results?.length||0)+' 个'); await loadState(); };
+document.getElementById('btnClaimAll').onclick = async ()=>{ toast('领取 Global 专家包…'); await api('POST','/api/claim-all').catch(()=>{}); toast('已尝试'); await loadState(); };
+document.getElementById('btnAdd').onclick = ()=>{
+  const name=prompt('账号名/昵称:'); if(name===null) return;
+  const region=prompt('区域 (CN / Global):','CN')||'CN';
+  const token=prompt('Bearer Token (accessToken):'); if(!token) return;
+  const ce=prompt('领取端点(可选, Global 专家包):','');
+  api('POST','/api/add',{name,region,token,claimEndpoint:ce}).then(()=>{toast('已添加');loadState();});
+};
+document.getElementById('autoChk').onchange = e=> api('POST','/api/settings',{autoCheckinCN:e.target.checked}).then(loadState);
+document.getElementById('expDis').onchange = e=> api('POST','/api/settings',{expireAutoDisable:e.target.checked}).then(loadState);
+document.getElementById('expDel').onchange = e=> api('POST','/api/settings',{expireAutoDelete:e.target.checked}).then(loadState);
+document.getElementById('chips').onclick = e=>{ if(e.target.dataset.f){ filter=e.target.dataset.f; document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active')); e.target.classList.add('active'); render(); } };
+
+function openModal(id){ document.getElementById(id).style.display='flex'; }
+function closeModal(id){ document.getElementById(id).style.display='none'; }
+
+// ===== 添加新账号（受 OAuth 白名单限制，走导入本机客户端登录态）=====
+document.getElementById('btnLogin').onclick = ()=>{ openModal('loginModal'); };
+document.getElementById('btnPull').onclick = async ()=>{
+  const r = await api('POST','/api/import-local');
+  document.getElementById('loginStatus').textContent = r.added ? '已添加新账号到凭证池' : (r.merged ? '已更新已有账号' : '未找到本机登录态（请先在 WorkBuddy 客户端登录该账号）');
+  toast(r.added ? '已添加' : (r.merged ? '已更新' : '未找到'));
+  await loadState();
+};
+
+// ===== 跨账号会话迁移 =====
+document.getElementById('btnSessions').onclick = ()=>{
+  const sel = document.getElementById('sessSrc'); const tgt=document.getElementById('sessTgt');
+  sel.innerHTML=''; tgt.innerHTML='';
+  state.accounts.filter(a=>a.uid).forEach(a=>{
+    sel.insertAdjacentHTML('beforeend',`<option value="${a.uid}">${esc(a.name||a.nickname||a.uid)}</option>`);
+    tgt.insertAdjacentHTML('beforeend',`<option value="${a.uid}">${esc(a.name||a.nickname||a.uid)}</option>`);
+  });
+  if(tgt.options.length>1) tgt.selectedIndex=1;
+  openModal('sessModal');
+  if(sel.value) loadSessions(sel.value);
+};
+document.getElementById('sessSrc').onchange = e=> loadSessions(e.target.value);
+async function loadSessions(uid){
+  const r=await api('GET',`/api/sessions/${uid}`);
+  const box=document.getElementById('sessList');
+  if(!r.sessions||!r.sessions.length){ box.innerHTML='<div class="empty">该账号本机无会话</div>'; return; }
+  box.innerHTML=r.sessions.map(s=>`<div class="sess"><input type="checkbox" data-sid="${s.sessionId}"><div class="meta"><b>${esc(s.name||s.sessionId)}</b> <span>· ${s.msgCount} 条消息 · ${s.lastMessageAt?s.lastMessageAt.slice(0,10):''}</span></div></div>`).join('');
+}
+document.getElementById('btnMigrate').onclick = async ()=>{
+  const uid=document.getElementById('sessSrc').value, tgt=document.getElementById('sessTgt').value;
+  if(!uid||!tgt){ toast('请选择源/目标账号'); return; }
+  if(uid===tgt){ toast('源和目标不能相同'); return; }
+  const sids=[...document.querySelectorAll('#sessList input:checked')].map(c=>c.dataset.sid);
+  if(!sids.length){ toast('请勾选要迁移的会话'); return; }
+  let ok=0,fail=0;
+  for(const sid of sids){ const r=await api('POST','/api/sessions/import',{uid,sessionId:sid,targetUid:tgt}); if(r.ok) ok++; else fail++; }
+  document.getElementById('sessStatus').textContent=`迁移完成：成功 ${ok}，失败 ${fail}。请在该账号登录的客户端重启以加载。`;
+};
+document.getElementById('btnExportSess').onclick = async ()=>{
+  const uid=document.getElementById('sessSrc').value;
+  const sids=[...document.querySelectorAll('#sessList input:checked')].map(c=>c.dataset.sid);
+  if(!sids.length){ toast('请勾选要导出的会话'); return; }
+  let ok=0;
+  for(const sid of sids){ const r=await api('POST','/api/sessions/export',{uid,sessionId:sid}); if(r.ok) ok++; }
+  document.getElementById('sessStatus').textContent=`已导出 ${ok} 个会话到 exports/ 目录（可拷贝到别的机器导入）。`;
+};
+
+loadState();
+</script>
+</body>
+</html>

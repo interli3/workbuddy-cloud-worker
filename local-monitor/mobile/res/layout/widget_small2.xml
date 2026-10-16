@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 小尺寸小组件：纯透明背景 + 浅色文字/深色光晕（深浅壁纸都可读），余额 + 当前执行任务 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widgetRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/bg_card_transparent"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/vDotLive"
+            android:layout_width="7dp"
+            android:layout_height="7dp"
+            android:background="@drawable/dot_live" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="7dp"
+            android:text="work buddy工具"
+            android:textColor="@color/wtext_dim"
+            android:textSize="11.5sp"
+            android:textStyle="bold"
+            android:shadowColor="#A6000000"
+            android:shadowDx="0"
+            android:shadowDy="1"
+            android:shadowRadius="2.5" />
+
+        <TextView
+            android:id="@+id/wUpdated"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="--:--"
+            android:textColor="@color/wtext_faint"
+            android:textSize="10.5sp"
+            android:shadowColor="#A6000000"
+            android:shadowDx="0"
+            android:shadowDy="1"
+            android:shadowRadius="2.5" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="bottom"
+        android:layout_marginTop="3dp">
+
+        <TextView
+            android:id="@+id/wBalance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="--"
+            android:textColor="@color/wmint"
+            android:textSize="23sp"
+            android:textStyle="bold"
+            android:includeFontPadding="false"
+            android:shadowColor="#A6000000"
+            android:shadowDx="0"
+            android:shadowDy="1"
+            android:shadowRadius="3" />
+
+        <TextView
+            android:id="@+id/wRunning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="3dp"
+            android:text=""
+            android:textColor="@color/wpurple"
+            android:textSize="10.5sp"
+            android:textStyle="bold"
+            android:shadowColor="#A6000000"
+            android:shadowDx="0"
+            android:shadowDy="1"
+            android:shadowRadius="2.5" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/wBalanceHint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:text=""
+        android:textColor="@color/wtext_dim"
+        android:textSize="10.5sp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:shadowColor="#A6000000"
+        android:shadowDx="0"
+        android:shadowDy="1"
+        android:shadowRadius="2.5" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginTop="5dp">
+
+        <TextView
+            android:id="@+id/wTaskDot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="\u25b6"
+            android:textColor="@color/wmint"
+            android:textSize="9sp"
+            android:shadowColor="#A6000000"
+            android:shadowDx="0"
+            android:shadowDy="1"
+            android:shadowRadius="2.5" />
+
+        <TextView
+            android:id="@+id/wTaskLine"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="5dp"
+            android:text=""
+            android:textColor="@color/wtext"
+            android:textSize="11.5sp"
+            android:textStyle="bold"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:shadowColor="#A6000000"
+            android:shadowDx="0"
+            android:shadowDy="1"
+            android:shadowRadius="2.5" />
+
+        <TextView
+            android:id="@+id/wTaskPct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text=""
+            android:textColor="@color/wmint"
+            android:textSize="10.5sp"
+            android:textStyle="bold"
+            android:shadowColor="#A6000000"
+            android:shadowDx="0"
+            android:shadowDy="1"
+            android:shadowRadius="2.5" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/wMonth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:text=""
+        android:textColor="@color/wtext_dim"
+        android:textSize="10.5sp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:shadowColor="#A6000000"
+        android:shadowDx="0"
+        android:shadowDy="1"
+        android:shadowRadius="2.5" />
+
+    <!-- DeepSeek 余额：在原有内容下面加的一行，用蓝紫区分「另一本账」 -->
+    <TextView
+        android:id="@+id/wDeepSeek"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text=""
+        android:textColor="@color/ds_wbrand"
+        android:textSize="10.5sp"
+        android:textStyle="bold"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:shadowColor="#A6000000"
+        android:shadowDx="0"
+        android:shadowDy="1"
+        android:shadowRadius="2.5" />
+</LinearLayout>

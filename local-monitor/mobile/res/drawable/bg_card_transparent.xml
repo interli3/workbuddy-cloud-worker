@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 小组件背景：纯透明（#F2FFFFFF 白卡是"无法看清壁纸"的根源，已按用户要求改全透明）。
+     可读性由布局内 TextView 的白色光晕阴影保证（浅色壁纸不可见，深色壁纸保对比）。 -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <solid android:color="#00000000" />
+</shape>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 自适应图标背景：emerald 渐变（由浅到深，135°） -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <gradient
+        android:type="linear"
+        android:angle="135"
+        android:startColor="#FF10B981"
+        android:centerColor="#FF059669"
+        android:endColor="#FF047857" />
+</shape>

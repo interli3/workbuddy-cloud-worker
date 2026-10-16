@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 下拉项专用布局：系统自带的 simple_spinner_item/dropdown_item 在深色主题下会被压成 0 高且文字不可见 -->
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="44dp"
+    android:gravity="center_vertical"
+    android:paddingStart="10dp"
+    android:paddingEnd="10dp"
+    android:textColor="#FFEAF4FF"
+    android:textSize="14sp" />

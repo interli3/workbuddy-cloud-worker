@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 自适应图标前景：白色仪表盘卡 + 薄荷余额折线 + 实时点
+     透明背景，仅主体占据中心安全区（108 视口，主体约 23..85） -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- 白色仪表盘卡（圆角矩形） -->
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M32,38 h44 a9,9 0 0 1 9,9 v20 a9,9 0 0 1 -9,9 h-44 a9,9 0 0 1 -9,-9 v-20 a9,9 0 0 1 9,-9 z" />
+
+    <!-- 余额上行折线（薄荷） -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FF10B981"
+        android:strokeWidth="4.5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M33,62 L43,55 L53,59 L64,47 L73,52 L80,45" />
+
+    <!-- 实时点（深绿） -->
+    <path
+        android:fillColor="#FF047857"
+        android:pathData="M76,45 m-4.5,0 a4.5,4.5 0 1,0 9,0 a4.5,4.5 0 1,0 -9,0" />
+</vector>

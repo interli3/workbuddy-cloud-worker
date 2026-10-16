@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Check JavaScript syntax
+        run: |
+          node --check src/cli.js
+          node --check src/server.mjs
+          node --check mobile/_mqtt_probe.js
+      - name: Android static audit
+        run: python mobile/audit.py
+      - name: Check-in business response regression
+        run: node --test src/checkin.test.js
+      - name: Verify privacy-safe generic configuration
+        run: |
+          python scripts/configure.py --no-auto-lan --no-bridge-auth --disable-mqtt
+          python -c 'import json; c=json.load(open("config.local.json")); assert c["lanUrl"] == "" and c["mqttTopic"] == "" and c["bridgeToken"] == ""'
+      - name: Usage regression tests
+        run: |
+          python mobile/test_daymark.py
+          python mobile/test_usedtoday_fix.py
+          python mobile/test_bridge_auth.py

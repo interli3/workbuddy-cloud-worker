@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 智能提醒：共享玻璃面板中的扁平列表项 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:background="@android:color/transparent"
+    android:paddingStart="2dp"
+    android:paddingEnd="2dp"
+    android:paddingTop="11dp"
+    android:paddingBottom="11dp">
+
+    <View
+        android:id="@+id/vBar"
+        android:layout_width="3dp"
+        android:layout_height="30dp"
+        android:background="@drawable/bg_progress_warn" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_marginStart="12dp">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/text"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:maxLines="1"
+            android:ellipsize="end" />
+
+        <TextView
+            android:id="@+id/tvDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text=""
+            android:textColor="@color/text_dim"
+            android:textSize="11.5sp"
+            android:lineSpacingExtra="2dp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvAction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="查看 ›"
+        android:textColor="@color/accent_deep"
+        android:textSize="11.5sp"
+        android:textStyle="bold"
+        android:visibility="gone" />
+</LinearLayout>
