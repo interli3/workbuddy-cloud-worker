@@ -1,0 +1,16 @@
+{
+  "name": "workbuddy-cloud-worker",
+  "version": "1.0.0",
+  "private": true,
+  "description": "WorkBuddy 云端自动化 worker：每日签到 / 猫猫旅行循环 / 令牌自我续期 / 成长任务补缺口。零外部依赖，可跑在任意 Node 环境或平台托管上。",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "optionalDependencies": {
+    "@tencent-ai/workbuddy-cloud-sdk": "*"
+  }
+}

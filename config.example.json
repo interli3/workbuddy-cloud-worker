@@ -1,0 +1,17 @@
+{
+  "access_key": "改成你自己的随机字符串（用于保护 /status /log 等管理端点）",
+  "accounts": [
+    {
+      "name": "账号备注名（随意，仅用于日志区分）",
+      "uid": "你的用户ID（JWT 的 sub，可选）",
+      "accessToken": "你的 access token（eyJ... 开头的 JWT）",
+      "refreshToken": "你的 refresh token（强烈建议填，否则 30 天后断链）",
+      "expiresAt": 0,
+      "refreshExpiresAt": 0
+    }
+  ],
+  "cloud": {
+    "endpoint": "（可选）你的平台托管域名，如 https://xxx.app.workbuddy.host",
+    "publishableKey": "（可选）你的云服务 publishableKey，用于把运行历史落库"
+  }
+}

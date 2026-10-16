@@ -1,0 +1,16 @@
+# 真实配置与运行态，绝不入库
+config.json
+state.json
+run.log
+*.log
+
+# 依赖与系统文件
+node_modules/
+.DS_Store
+Thumbs.db
+*.bak
+*.bak_*
+
+# 各种编辑器
+.vscode/
+.idea/
