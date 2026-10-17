@@ -33,7 +33,12 @@ function log(msg) {
   const line = '[' + new Date().toISOString() + '] ' + msg;
   LOG_RING.push(line);
   if (LOG_RING.length > 600) LOG_RING.splice(0, 200);
-  try { fs.appendFileSync(path.join(HERE, 'run.log'), line + '\n'); } catch {}
+  try {
+    const p = path.join(HERE, 'run.log');
+    // 轮转：超过 1MB 滚成 run.log.1，防止无限增长把磁盘/体积拖爆
+    try { if (fs.statSync(p).size > 1024 * 1024) fs.renameSync(p, p + '.1'); } catch { /* 文件还不存在 */ }
+    fs.appendFileSync(p, line + '\n');
+  } catch {}
   console.log(line);
 }
 
@@ -203,6 +208,7 @@ async function doBuddyTravel(acct, st) {
   const origId = origBuddy && (origBuddy.instance_id || origBuddy.id);
 
   let limitReached = false;
+  try {
   for (const bd of buddies) {
     const nm = bd.name || bd.title || ('#' + bd.instance_id);
     const sw = await reqJson(HOST_WB, '/activity/growth/buddy/switch', acct.accessToken, 'POST', { instance_id: Number(bd.instance_id) });
@@ -243,10 +249,18 @@ async function doBuddyTravel(acct, st) {
       }
     }
   }
-  // 2) 恢复原当前猫
-  if (origId) {
-    const rb = await reqJson(HOST_WB, '/activity/growth/buddy/switch', acct.accessToken, 'POST', { instance_id: Number(origId) });
-    if (rb.json && rb.json.code === 0) acts.push('已恢复原猫');
+  } catch (e) {
+    acts.push('异常:' + String((e && e.message) || e).slice(0, 30));
+  } finally {
+    // 2) 恢复原当前猫 —— 必须放 finally：中途抛异常也要把账号的当前猫还原，
+    //    否则他的账号会被永久停在我们最后切到的那只猫上（体验问题，且下次会误判）。
+    if (origId) {
+      try {
+        const rb = await reqJson(HOST_WB, '/activity/growth/buddy/switch', acct.accessToken, 'POST', { instance_id: Number(origId) });
+        if (rb.json && rb.json.code === 0) acts.push('已恢复原猫');
+        else acts.push('恢复原猫失败');
+      } catch (e2) { acts.push('恢复原猫异常'); }
+    }
   }
   b.limitReached = limitReached;
   b.day = cnDateStr();
@@ -254,25 +268,35 @@ async function doBuddyTravel(acct, st) {
 }
 
 // ---------- 一轮完整工作 ----------
+let TICK_RUNNING = false;   // 防重入：上一轮没结束就跳过，避免并发把 state 写乱
 async function tick() {
+  if (TICK_RUNNING) { log('上一轮尚未结束，跳过本轮'); return; }
+  TICK_RUNNING = true;
   const st = loadState();
-  st.lastTickAt = new Date().toISOString();
-  st.tickCount = (st.tickCount || 0) + 1;
-  if (!st.accounts) st.accounts = {};
-  try { await ensureTokens(); } catch (e) { log('续期检查异常: ' + e.message); }
-  for (const acct of CFG.accounts) {
-    try {
-      const r1 = await doCheckin(acct, st);
-      const r2 = await doBuddyTravel(acct, st);
-      log(acct.name + ' 一轮完成：签到=' + r1 + '；猫猫=' + (r2.join(' | ') || '无动作'));
-    } catch (e) {
-      log(acct.name + ' 本轮异常：' + (e && e.message || e));
+  try {
+    st.lastTickAt = new Date().toISOString();
+    st.tickCount = (st.tickCount || 0) + 1;
+    if (!st.accounts) st.accounts = {};
+    try { await ensureTokens(); } catch (e) { log('续期检查异常: ' + e.message); }
+    for (const acct of CFG.accounts) {
+      try {
+        const r1 = await doCheckin(acct, st);
+        // 业务成功的客观锚点（/health 的 lastOkAt 用它判断"真的干成活了没"）
+        const cc = ((st.accounts[acct.name] || {}).checkin) || {};
+        if (cc.day === cnDateStr() && cc.done) st.lastOkAt = new Date().toISOString();
+        const r2 = await doBuddyTravel(acct, st);
+        log(acct.name + ' 一轮完成：签到=' + r1 + '；猫猫=' + (r2.join(' | ') || '无动作'));
+      } catch (e) {
+        log(acct.name + ' 本轮异常：' + (e && e.message || e));
+      }
     }
+    await maybeGrowthTasks(st).catch(e => log('成长任务轮异常: ' + e.message));
+  } finally {
+    // 无论中途抛什么，状态都要落盘：否则 tickCount 与"今天已签到"标记会丢，可能重复签到
+    st.tokenInfo = CFG.accounts.map(a => ({ name: a.name, daysLeft: daysLeft(a.expiresAt), refreshDaysLeft: daysLeft(a.refreshExpiresAt) }));
+    saveState(st);
+    TICK_RUNNING = false;
   }
-  // 成长任务（限速：每账号每天最多 2 轮）
-  await maybeGrowthTasks(st).catch(e => log('成长任务轮异常: ' + e.message));
-  st.tokenInfo = CFG.accounts.map(a => ({ name: a.name, daysLeft: daysLeft(a.expiresAt), refreshDaysLeft: daysLeft(a.refreshExpiresAt) }));
-  saveState(st);
 }
 
 // ---------- 成长任务自动化（每轮顺带补缺口） ----------
@@ -319,13 +343,33 @@ const server = http.createServer((req, res) => {
   const urlObj = new URL(req.url, 'http://localhost');
   const send = (code, obj) => { res.writeHead(code, { 'content-type': 'application/json; charset=utf-8' }); res.end(JSON.stringify(obj, null, 1)); };
   if (urlObj.pathname === '/health') {
+    // 这个端点**公网无鉴权**，所以只允许放"非敏感、能自证"的信息：
+    // 不带任何账号昵称/余额/任务明细，只给数量、告警种类和业务锚点。
     const st = loadState();
+    const today = cnDateStr();
+    const kinds = new Set();
+    for (const a of CFG.accounts) {
+      const dl = daysLeft(a.expiresAt);
+      if (dl == null || dl < 7) kinds.add('token_expiring');
+      const c = ((st.accounts && st.accounts[a.name] || {}).checkin) || {};
+      if (!(c.day === today && c.done)) kinds.add('checkin_pending');
+    }
+    const staleH = st.lastTickAt ? (Date.now() - new Date(st.lastTickAt).getTime()) / 3600000 : null;
+    if (staleH == null || staleH > 26) kinds.add('stale');
+    const okAt = st.lastOkAt ? (Date.now() - new Date(st.lastOkAt).getTime()) / 3600000 : null;
+    if (okAt != null && okAt > 26) kinds.add('business_stale');
+    const tokenDays = CFG.accounts.map(a => daysLeft(a.expiresAt)).filter(x => x != null);
     return send(200, {
       ok: true, service: 'wbmon-cloud',
       uptimeMinutes: Math.round((Date.now() - START_AT) / 60000),
       tickCount: st.tickCount || 0, lastTickAt: st.lastTickAt || null,
+      staleHours: staleH == null ? null : Math.round(staleH * 10) / 10,
+      lastOkAt: st.lastOkAt || null,
       tickMinutes: TICK_MINUTES,
-      accounts: CFG.accounts.map(a => ({ name: a.name, daysLeft: daysLeft(a.expiresAt) })),
+      acctCount: CFG.accounts.length,
+      tokenDaysMin: tokenDays.length ? Math.min(...tokenDays) : null,
+      alerts: Array.from(kinds),
+      alertCount: kinds.size,
     });
   }
   if (!authed(req, urlObj)) return send(401, { ok: false, msg: '未授权' });
