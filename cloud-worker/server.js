@@ -373,6 +373,38 @@ const server = http.createServer((req, res) => {
     });
   }
   if (!authed(req, urlObj)) return send(401, { ok: false, msg: '未授权' });
+  // 一行战报：给云端心跳当"推送内容"用。纯文本，手机上一眼看完。
+  if (urlObj.pathname === '/digest') {
+    const st = loadState();
+    const today = cnDateStr();
+    const ok = [], miss = [];
+    let credit = 0, streak = 0, cats = 0, limited = 0, noAdopt = 0, withCats = 0;
+    for (const a of CFG.accounts) {
+      const v = (st.accounts || {})[a.name] || {};
+      const c = v.checkin || {}, b = v.buddy || {};
+      if (c.day === today && c.done) {
+        ok.push(a.name);
+        credit += Number(c.credit) || 0;
+        streak = Math.max(streak, Number(c.streak) || 0);
+      } else miss.push(a.name);
+      cats += Number(b.owned) || 0;
+      if (b.owned) { withCats++; if (b.limitReached) limited++; } else noAdopt++;
+    }
+    const dl = CFG.accounts.map(x => daysLeft(x.expiresAt)).filter(x => x != null);
+    const tokenDays = dl.length ? Math.min(...dl) : null;
+    const bits = [];
+    bits.push(ok.length === CFG.accounts.length
+      ? `签到 ${ok.length}/${CFG.accounts.length} 全成 +${credit}${streak ? `（连续 ${streak} 天）` : ''}`
+      : `签到 ${ok.length}/${CFG.accounts.length}，缺 ${miss.join('、')}`);
+    if (cats) bits.push(`猫猫 ${cats} 只${withCats > 0 && limited >= withCats ? '已跑满' : '在跑'}`);
+    if (noAdopt) bits.push(`${noAdopt} 个号未领养`);
+    if (tokenDays != null) bits.push(`令牌剩 ${tokenDays} 天`);
+    const hhmm = new Date(Date.now() + 8 * 3600 * 1000).toISOString().slice(11, 16);
+    const head = miss.length ? '⚠️ ' : '✅ ';
+    const tail = miss.length ? '有号没签上' : '正常';
+    res.writeHead(200, { 'content-type': 'text/plain; charset=utf-8' });
+    return res.end(`${head}${today} ${hhmm}｜${bits.join(' · ')} · ${tail}`);
+  }
   if (urlObj.pathname === '/status') {
     return send(200, { ok: true, now: new Date().toISOString(), state: loadState() });
   }
