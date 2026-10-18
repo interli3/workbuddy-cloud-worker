@@ -48,7 +48,15 @@ cp config.example.json config.json
 }
 ```
 
-**怎么拿到 access / refresh 令牌？** 登录 WorkBuddy 客户端后，登录态是加密存在本地的；也可以用官方刷新接口自行获取。本仓库**不提供**令牌提取脚本 —— 请用你自己的方式获取，并妥善保管。
+**怎么拿到 access / refresh 令牌？** 跑仓库自带的提取脚本（只依赖 WorkBuddy 客户端本身，**不需要 WorkDaddy 或任何第三方工具**，但必须在你那台登录过的电脑上跑）：
+
+```bash
+node get-token.cjs          # 客户端装在非默认目录：加 --exe "<WorkBuddy.exe 的完整路径>"
+```
+
+它会读出本机客户端登录态、就地解密，生成 `tokens.json`（明文，别外传），把里面的字段填进 `config.json` 即可。
+
+> 为什么不能直接抄：WorkBuddy 5.6+ 把登录态做了本地字段加密，`workbuddy-desktop.info` 里是 `{"$wbEncrypted":1,"envelope":"..."}` 信封，**明文令牌在文件里根本不存在**，直接复制或用脚本 grep 都只会拿到密文。三步细节、各种报错对照、以及「只要 access 不用 refresh」的兜底做法，见 **[`docs/获取令牌.md`](docs/获取令牌.md)**。
 
 ### 2. 运行
 
@@ -168,9 +176,11 @@ Body: [ { eventCode: "xxx", userId, machineId, sessionId, ... } ]
 .
 ├── server.js              # 主服务：签到 / 猫猫旅行 / 续期 / 调度 / HTTP 端点
 ├── growth-tasks.js        # 成长任务配方（每个任务一段埋点逻辑）
+├── get-token.cjs          # 从本机客户端登录态取出明文令牌（本地解密，不联网）
 ├── config.example.json    # 配置模板
 ├── package.json
 ├── docs/
+│   ├── 获取令牌.md         # 令牌从哪来 / 常见报错 / 兜底方案
 │   └── 成长任务机制.md
 └── LICENSE
 ```

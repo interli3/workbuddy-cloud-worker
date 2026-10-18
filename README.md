@@ -36,6 +36,7 @@
 ├── cloud-worker/                  ☁️ 云端自动化
 │   ├── server.js                  # 主服务：签到 / 猫猫旅行 / 令牌续期 / 调度 / HTTP 端点
 │   ├── growth-tasks.js            # 成长计划 15 条任务的配方（含必须真实团队对话的「召唤 3 次专家团」）
+│   ├── get-token.cjs              # 从本机客户端登录态取出明文 access/refresh 令牌（本地解密）
 │   ├── config.example.json        # 配置模板（令牌留空，需自己填）
 │   ├── docs/成长任务机制.md        # 成长任务的埋点机制详解
 │   └── README.md                  # ← 云端这块的完整说明

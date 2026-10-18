@@ -1,5 +1,6 @@
 # ============ 通用：真实配置与运行态，绝不入库 ============
 config.json
+tokens.json
 state.json
 run.log
 *.log
