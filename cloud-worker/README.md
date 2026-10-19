@@ -123,13 +123,18 @@ curl "http://127.0.0.1:8080/log?key=<access_key>"       # 最近日志
 
 **频率建议**：**每天 2–3 次**足够（签到一/天、成长任务是补缺口、猫猫旅行受每日出发上限约束）。不必每 10 分钟——每次唤醒本身就是一次完整的 AI 调用，过于频繁既费额度也没收益。
 
-**怎么验证心跳真的生效**：
+**怎么验证心跳真的生效** —— 🔴 **别只看 `/health`**：
 
 ```bash
-curl -s https://你的域名/health    # 连续两次，看 tickCount 是否随每次唤醒 +1
+curl -s https://你的域名/health
 ```
 
-或者直接看 `/log`：每次唤醒都会打印一行"wbmon-cloud 已启动"和紧接着的"一轮完成"。
+`lastTickAt` / `tickCount` 是**单点快照**，而且**你的这次查询本身就是一次唤醒**（启动即跑一轮）⇒ 「刚查过所以它是好的」是假证据。`/log` 同理，沙箱一重启就清空。
+
+正确的判据是**平台调度日志**：`triggerType=scheduled` + `status=success` + `executorNode=agentserver-*`，详情里的 `agentOutput` 还能看到 worker 当场返回的业务战报。
+
+完整方法、接口、四种常见误判 → [`docs/验证心跳.md`](docs/验证心跳.md)
+一键对账 → `node tools/心跳对账.cjs 10`；定时体检 → `node tools/心跳告警.cjs`
 
 ---
 
