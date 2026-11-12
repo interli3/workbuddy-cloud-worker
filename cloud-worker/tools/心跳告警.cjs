@@ -80,10 +80,27 @@ const fmt = (s) => new Date(s).toLocaleString('zh-CN', { hour12: false });
   }
 
   // 2) 今日业务与令牌
-  const ep = (cfg.cloud && cfg.cloud.endpoint) || 'https://wbmon-cloud-worker.app.workbuddy.host';
+  //    ⚠️ 托管链接必须带 ?sharecode=（对外分享链接里那串），缺了会被网关拦成
+  //       403 + 一张「链接不完整」的网页，而不是报连不上。别把网页当 JSON 解析。
+  const ep = (cfg.cloud && cfg.cloud.endpoint) || '';
+  const share = (cfg.cloud && cfg.cloud.sharecode) || '';
+  const today = cnDate();
+  let st = null;
   try {
-    const st = (await (await fetch(`${ep}/status?key=${encodeURIComponent(cfg.access_key)}`, { signal: AbortSignal.timeout(20000) })).json()).state || {};
-    const today = cnDate();
+    if (!ep) throw new Error('配置文件缺 cloud.endpoint');
+    const qs = '?key=' + encodeURIComponent(cfg.access_key) + (share ? '&sharecode=' + encodeURIComponent(share) : '');
+    const r = await fetch(`${ep}/status${qs}`, { signal: AbortSignal.timeout(20000) });
+    const ct = r.headers.get('content-type') || '';
+    if (!r.ok || !/json/i.test(ct)) {
+      throw new Error(`HTTP ${r.status}，返回 ${(ct.split(';')[0] || '空类型')} 网页而非数据` +
+        (share ? '（sharecode 可能已失效）' : '（cloud.sharecode 未配置，托管链接缺它必被拦成 403）'));
+    }
+    st = (await r.json()).state || {};
+  } catch (e) {
+    issues.push('云端服务连不上：' + String(e.message || e).slice(0, 90));
+  }
+
+  if (st) {
     for (const [name, v] of Object.entries(st.accounts || {})) {
       const c = v.checkin || {};
       const ok = c.day === today && c.done;
@@ -94,8 +111,26 @@ const fmt = (s) => new Date(s).toLocaleString('zh-CN', { hour12: false });
       facts.push(`令牌 ${t.name}：剩 ${t.daysLeft} 天`);
       if (t.daysLeft < 7) issues.push(`${t.name} 令牌 ${t.daysLeft} 天后到期`);
     }
-  } catch (e) {
-    issues.push('读取业务状态失败：' + String(e.message || e).slice(0, 80));
+  } else {
+    // 云端读不到 → 直连平台只读接口，确认今天到底有没有漏签（避免"服务挂了"被误报成"漏签"）
+    for (const a of cfg.accounts || []) {
+      const nm = a.name || '?';
+      try {
+        const r = await fetch(`${WB}/v2/billing/meter/checkin-activity-status`, {
+          method: 'POST',
+          headers: { ...H, 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + a.accessToken },
+          body: '{}', signal: AbortSignal.timeout(15000),
+        });
+        const d = (await r.json()).data || {};
+        const ok = d.today_checked_in === true;
+        facts.push(`签到 ${nm}（平台直连）：${ok ? '已完成 +' + (d.today_credit ?? '?') + '｜连续 ' + (d.streak_days ?? '?') + ' 天' : '未完成'}`);
+        if (!ok) issues.push(`${nm} 今天未签到`);
+      } catch (e2) {
+        facts.push(`签到 ${nm}（平台直连）：没查到（${String(e2.message || e2).slice(0, 40)}）`);
+      }
+    }
+    // config.json 是部署时快照、云端会自动续期，拿它估令牌天数必然误报 → 不判断
+    facts.push('令牌剩余天数：云端读不到，本机配置不是最新，不做判断');
   }
 
   const stamp = new Date().toLocaleString('zh-CN', { hour12: false });
@@ -117,9 +152,12 @@ const fmt = (s) => new Date(s).toLocaleString('zh-CN', { hour12: false });
     '',
     '## 怎么处理',
     '1. 先跑 `node tools/心跳对账.cjs 8` 看完整时间线',
-    '2. 任务非 ACTIVE → 需要重新激活心跳',
-    '3. 只是今天漏签 → 手动触发一次：`POST /v2/as/scheduler/tasks/<id>/trigger`',
-    '4. 令牌到期 → 重新登录取新令牌（见 docs/获取令牌.md）',
+    '2. 【常见】云端连不上且报 403 / 返回网页 → 查 `config.cloud.endpoint` 的链接是否缺 `?sharecode=`：' +
+      '平台给的对外分享链接形如 `https://xxx.app.workbuddy.host/?sharecode=XXXXXXXX`，' +
+      '程序调用接口时也要带上这串（写成 `?key=...&sharecode=...`）。缺了不会报"应用已停"，只会返回一张「链接不完整」的网页',
+    '3. 任务非 ACTIVE → 需要重新激活心跳',
+    '4. 只是今天漏签 → 手动触发一次：`POST /v2/as/scheduler/tasks/<id>/trigger`',
+    '5. 令牌到期 → 重新登录取新令牌（见 docs/获取令牌.md）',
     '',
   ].join('\n');
   const mdPath = path.join(OUT_DIR, `心跳异常-${cnDate()}${SUFFIX}.md`);

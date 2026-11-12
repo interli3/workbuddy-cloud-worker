@@ -12,6 +12,8 @@
   ],
   "cloud": {
     "endpoint": "（可选）你的平台托管域名，如 https://xxx.app.workbuddy.host",
+    "sharecode": "（可选但强烈建议）平台对外分享链接里 ?sharecode= 后面那串；托管链接缺它会被网关拦成 403「链接不完整」",
+    "heartbeatTaskId": 0,
     "publishableKey": "（可选）你的云服务 publishableKey，用于把运行历史落库"
   }
 }
